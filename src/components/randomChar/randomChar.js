@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import "./randomChar.css";
-import gotService from "../../services/gotService";
+import GotService from "../../services/gotService";
 import Spinner from "../spinner/spinner";
 import ErrorMessage from "../errorMessage/errorMessage";
 
 export default class RandomChar extends Component {
-	constructor() {
-		super();
-		this.updateCharacter();
-	}
-	gotService = new gotService();
+	gotService = new GotService();
 	state = {
 		char: {},
 		loading: true,
 		error: false,
 	};
-
+	componentDidMount() {
+		this.updateChar();
+		this.timerId = setInterval(this.updateChar, 10000);
+	}
+	componentWillUnmount() {
+		clearInterval(this.timerId);
+	}
 	onCharLoaded = (char) => {
 		this.setState({
 			char,
@@ -27,13 +29,13 @@ export default class RandomChar extends Component {
 		this.setState({ error: true, loading: false });
 	};
 
-	updateCharacter() {
+	updateChar = () => {
 		const id = Math.floor(Math.random() * 140 + 25);
 		this.gotService
 			.getCharacter(id)
 			.then(this.onCharLoaded)
 			.catch(this.onError);
-	}
+	};
 	render() {
 		const { char, loading, error } = this.state;
 
