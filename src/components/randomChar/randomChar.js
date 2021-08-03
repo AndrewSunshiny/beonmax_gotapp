@@ -11,7 +11,7 @@ export default class RandomChar extends Component {
 		loading: true,
 		error: false,
 	};
-	static defaultProp = {
+	static defaultProps = {
 		interval: 15000,
 	};
 

@@ -23,7 +23,7 @@ export default class GotService {
 	};
 
 	getAllHouses = async () => {
-		const res = await this.getResource(`houses/`);
+		const res = await this.getResource(`houses`);
 		return res.map(this._transformHouse);
 	};
 
@@ -33,7 +33,7 @@ export default class GotService {
 	};
 
 	getAllBooks = async () => {
-		const res = await this.getResource(`books/`);
+		const res = await this.getResource(`books`);
 		return res.map(this._transformBook);
 	};
 
